@@ -6,10 +6,19 @@ export const mapFixtures = [
       longtitude: 100.65473040647144
     },
     imgUrl: 'https://villas-dream.com/wp-content/uploads/2018/04/villas_13_srgb_low_res_4_web-1.jpg',
-    title: '',
-    description: '',
+    title: 'Lorem',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, alias!',
     price: '10.000',
-    options: {},
+    options: [
+      {
+        name: 'badrooms',
+        value: '4'
+      },
+      {
+        name: 'square',
+        value: 2000
+      }
+    ],
     plot: null
   },
   {
@@ -19,10 +28,19 @@ export const mapFixtures = [
       longtitude: 100.4335870804875
     },
     imgUrl: 'https://villas-dream.com/wp-content/uploads/2018/04/villas_13_srgb_low_res_4_web-1.jpg',
-    title: '',
-    description: '',
+    title: 'Lorem',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, alias!',
     price: '10.000',
-    options: {},
+    options: [
+      {
+        name: 'badrooms',
+        value: '4'
+      },
+      {
+        name: 'square',
+        value: 2000
+      }
+    ],
     plot: null
   },
   {
@@ -32,10 +50,19 @@ export const mapFixtures = [
       longtitude: 100.6535756110355
     },
     imgUrl: 'https://villas-dream.com/wp-content/uploads/2018/04/villas_13_srgb_low_res_4_web-1.jpg',
-    title: '',
-    description: '',
+    title: 'Lorem',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, alias!',
     price: '10.000',
-    options: {},
+    options: [
+      {
+        name: 'badrooms',
+        value: '4'
+      },
+      {
+        name: 'square',
+        value: 2000
+      }
+    ],
     plot: null
   },
   {
@@ -45,10 +72,19 @@ export const mapFixtures = [
       longtitude: 100.80884410808468
     },
     imgUrl: 'https://villas-dream.com/wp-content/uploads/2018/04/villas_13_srgb_low_res_4_web-1.jpg',
-    title: '',
-    description: '',
+    title: 'Lorem',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, alias!',
     price: '10.000',
-    options: {},
+    options: [
+      {
+        name: 'badrooms',
+        value: '4'
+      },
+      {
+        name: 'square',
+        value: 2000
+      }
+    ],
     plot: null
   },
   {
@@ -58,10 +94,19 @@ export const mapFixtures = [
       longtitude: 100.0772030475417
     },
     imgUrl: 'https://villas-dream.com/wp-content/uploads/2018/04/villas_13_srgb_low_res_4_web-1.jpg',
-    title: '',
-    description: '',
+    title: 'Lorem',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, alias!',
     price: '10.000',
-    options: {},
+    options: [
+      {
+        name: 'badrooms',
+        value: '4'
+      },
+      {
+        name: 'square',
+        value: 2000
+      }
+    ],
     plot: null
   },
   {
@@ -71,10 +116,19 @@ export const mapFixtures = [
       longtitude: 100.85952499178235
     },
     imgUrl: 'https://villas-dream.com/wp-content/uploads/2018/04/villas_13_srgb_low_res_4_web-1.jpg',
-    title: '',
-    description: '',
+    title: 'Lorem',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, alias!',
     price: '10.000',
-    options: {},
+    options: [
+      {
+        name: 'badrooms',
+        value: '4'
+      },
+      {
+        name: 'square',
+        value: 2000
+      }
+    ],
     plot: null
   },
   {
@@ -84,10 +138,19 @@ export const mapFixtures = [
       longtitude: 100.422373430496
     },
     imgUrl: 'https://villas-dream.com/wp-content/uploads/2018/04/villas_13_srgb_low_res_4_web-1.jpg',
-    title: '',
-    description: '',
+    title: 'Lorem',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, alias!',
     price: '10.000',
-    options: {},
+    options: [
+      {
+        name: 'badrooms',
+        value: '4'
+      },
+      {
+        name: 'square',
+        value: 2000
+      }
+    ],
     plot: null
   },
   {
@@ -97,10 +160,19 @@ export const mapFixtures = [
       longtitude: 100.39903792772813
     },
     imgUrl: 'https://villas-dream.com/wp-content/uploads/2018/04/villas_13_srgb_low_res_4_web-1.jpg',
-    title: '',
-    description: '',
+    title: 'Lorem',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, alias!',
     price: '10.000',
-    options: {},
+    options: [
+      {
+        name: 'badrooms',
+        value: '4'
+      },
+      {
+        name: 'square',
+        value: 2000
+      }
+    ],
     plot: [
       {
         latitude: 13.514267455893446,
@@ -131,10 +203,19 @@ export const mapFixtures = [
       longtitude: 100.27077735303047
     },
     imgUrl: 'https://villas-dream.com/wp-content/uploads/2018/04/villas_13_srgb_low_res_4_web-1.jpg',
-    title: '',
-    description: '',
+    title: 'Lorem',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, alias!',
     price: '10.000',
-    options: {},
+    options: [
+      {
+        name: 'badrooms',
+        value: '4'
+      },
+      {
+        name: 'square',
+        value: 2000
+      }
+    ],
     plot: [
       {
         latitude: 13.524893626569177,
@@ -161,10 +242,19 @@ export const mapFixtures = [
       longtitude:  100.98214427872045
     },
     imgUrl: 'https://villas-dream.com/wp-content/uploads/2018/04/villas_13_srgb_low_res_4_web-1.jpg',
-    title: '',
-    description: '',
+    title: 'Lorem',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, alias!',
     price: '10.000',
-    options: {},
+    options: [
+      {
+        name: 'badrooms',
+        value: '4'
+      },
+      {
+        name: 'square',
+        value: 2000
+      }
+    ],
     plot: [
       {
         latitude: 13.492861062670123,

@@ -5,10 +5,13 @@
       v-model="zoom"
       v-model:zoom="zoom"
       :center="[centerLat, centerLng]"
-      :min-zoom="2"
-      :max-zoom="17"
+      :min-zoom="minZoom"
+      :max-zoom="maxZoom"
       @update:zoom="emitMapZoom"
     >
+
+      <l-control-layers />
+
       <l-tile-layer
         v-for="provider of tileProviders"
         :key="provider.name"
@@ -19,6 +22,7 @@
         :subdomains="provider.subdomains"
         layer-type="base"
       ></l-tile-layer>
+
       <template
         v-for="marker of markers"
         :key="marker.id"
@@ -26,7 +30,11 @@
         <l-marker
           :lat-lng="[marker.coords.latitude, marker.coords.longtitude]"
           @click="handleMarkerClick(marker)"
-        ></l-marker>
+        >
+          <l-tooltip>
+            <map-tooltip :item="marker" />
+          </l-tooltip>
+        </l-marker>
         <l-polygon
           v-if="marker.plot"
           :lat-lngs="modifyCoords(marker.plot)"
@@ -36,21 +44,27 @@
         ></l-polygon>
       </template>
 
-      <l-control-layers />
     </l-map>
   </div>
 </template>
 
 <script>
-import { defineComponent, onBeforeMount, reactive, ref } from "@vue/runtime-core";
+import {
+  defineComponent,
+  onBeforeMount,
+  reactive,
+  ref
+} from "@vue/runtime-core";
 import {
   LMap,
   LControlLayers,
   LTileLayer,
   LMarker,
-  LPolygon
+  LPolygon,
+  LTooltip
 } from "@vue-leaflet/vue-leaflet";
 import "leaflet/dist/leaflet.css";
+import MapTooltip from './MapTooltip';
 
 export default defineComponent({
   name: 'GMap',
@@ -59,7 +73,9 @@ export default defineComponent({
     LControlLayers,
     LTileLayer,
     LMarker,
-    LPolygon
+    LPolygon,
+    LTooltip,
+    MapTooltip
   },
   emits: ['mapZoom', 'markerClick'],
   props: {
@@ -104,6 +120,8 @@ export default defineComponent({
       //   subdomains: 'abcd',
       // }
     ])
+    const minZoom = 2;
+    const maxZoom = 17;
 
     const getCenter = () => {
       window.navigator.geolocation.getCurrentPosition(data => {
@@ -114,12 +132,12 @@ export default defineComponent({
 
     const handleMarkerClick = (marker) => {
       emit('markerClick', marker);
-      // remove if dont need to center and zoom marker place on click
-      zoom.value = 15;
+      // remove if dont need to centered and zoom marker place on click
+      zoom.value = maxZoom;
       setTimeout(() => {
         centerLng.value = marker.coords.longtitude;
         centerLat.value = marker.coords.latitude;
-      }, 500);
+      }, 100);
     };
 
     const emitMapZoom = zoom => emit('mapZoom', zoom);
@@ -129,11 +147,14 @@ export default defineComponent({
     };
 
     onBeforeMount(() => getCenter());
+
     return {
       zoom,
       centerLat,
       centerLng,
       tileProviders,
+      maxZoom,
+      minZoom,
       handleMarkerClick,
       emitMapZoom,
       modifyCoords
