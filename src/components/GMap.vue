@@ -1,5 +1,10 @@
 <template>
   <div class="g-map">
+
+    <div class="g-map__l-control">
+      <map-layers-control @toggleLayer="handleToggleLayer" />
+    </div>
+
     <l-map
       :zoom="zoom"
       v-model="zoom"
@@ -10,11 +15,9 @@
       @update:zoom="emitMapZoom"
     >
 
-      <l-control-layers />
-
       <l-tile-layer
         v-for="provider of tileProviders"
-        :key="provider.name"
+        :key="provider.id"
         :name="provider.name"
         :visible="provider.visible"
         :url="provider.url"
@@ -57,7 +60,6 @@ import {
 } from "@vue/runtime-core";
 import {
   LMap,
-  LControlLayers,
   LTileLayer,
   LMarker,
   LPolygon,
@@ -65,17 +67,18 @@ import {
 } from "@vue-leaflet/vue-leaflet";
 import "leaflet/dist/leaflet.css";
 import MapTooltip from './MapTooltip';
+import MapLayersControl from './MapLayersControl';
 
 export default defineComponent({
   name: 'GMap',
   components: {
     LMap,
-    LControlLayers,
     LTileLayer,
     LMarker,
     LPolygon,
     LTooltip,
-    MapTooltip
+    MapTooltip,
+    MapLayersControl
   },
   emits: ['mapZoom', 'markerClick'],
   props: {
@@ -91,8 +94,9 @@ export default defineComponent({
     const zoom = ref(props.defaultZoom);
     const centerLat = ref(13.765744606439108);
     const centerLng = ref(100.49043622905579);
-    const tileProviders = reactive([
+    let tileProviders = reactive([
       {
+        id: 1,
         name: 'Streets',
         visible: true,
         attribution:
@@ -100,25 +104,24 @@ export default defineComponent({
         url: 'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
       },
       {
-        name: 'Streets ARCGIS',
-        visible: false,
-        attribution:
-          '&copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012 etc. etc. etc.',
-        url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-      },
-      {
+        id: 2,
         name: 'Satelite',
         visible: false,
         url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
         attribution:
           '&copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
       },
-      // {
-      //   visible: false,
-      //   url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}{r}.png',
-      //   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      //   subdomains: 'abcd',
-      // }
+      {
+        id: 3,
+        name: 'Satelite',
+        visible: false,
+        // for labels layer
+        url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}{r}.png',
+        // for hybrid layer
+        // https://stamen-tiles-{s}.a.ssl.fastly.net/toner-hybrid/{z}/{x}/{y}{r}.{ext}
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        subdomains: 'abcd',
+      }
     ])
     const minZoom = 2;
     const maxZoom = 17;
@@ -143,7 +146,14 @@ export default defineComponent({
     const emitMapZoom = zoom => emit('mapZoom', zoom);
 
     const modifyCoords = plot => {
-      return plot.map(coords => [coords.latitude, coords.longtitude])
+      return plot.map(coords => [coords.latitude, coords.longtitude]);
+    };
+
+    const handleToggleLayer = () => {
+      tileProviders = tileProviders.map(layer => {
+        layer.visible = !layer.visible;
+        return layer;
+      });
     };
 
     onBeforeMount(() => getCenter());
@@ -157,7 +167,8 @@ export default defineComponent({
       minZoom,
       handleMarkerClick,
       emitMapZoom,
-      modifyCoords
+      modifyCoords,
+      handleToggleLayer
     };
   }
 })
@@ -167,4 +178,12 @@ export default defineComponent({
   .g-map
     width: 100%
     height: 100%
+    position: relative
+    z-index: 1
+
+  .g-map__l-control
+    position: absolute
+    top: 30px
+    right: 30px
+    z-index: 1000
 </style>

@@ -1,17 +1,14 @@
 <template>
-  <q-card flat bordered="false" class="map-tootltip">
+  <q-card flat class="map-tootltip">
     <q-img
       :src="item.imgUrl"
       spinner-color="blue"
       class="map-tooltip__img"
     />
-    <q-card-section>
+    <q-card-section class="q-pt-none">
       <div class="text-h6 map-tootltip__text">
         {{ item.title }}
       </div>
-    </q-card-section>
-
-    <q-card-section class="q-pt-none">
       <div class="text-subtitle1 map-tootltip__text">
         {{ item.price }}&nbsp;$
       </div>
@@ -48,7 +45,7 @@ export default defineComponent({
      * imgUrl: string,
      * options: { name: string, value: string }[]
      */
-    item: { type: Object },
+    item: { type: Object }
   }
 })
 </script>
