@@ -1,5 +1,5 @@
 module.exports = {
-  publickPath: process.env.NODE_ENV === 'production' ? '/vue-g-map/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/vue-g-map/' : '/',
   pluginOptions: {
     quasar: {
       importStrategy: 'kebab',
