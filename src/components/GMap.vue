@@ -12,8 +12,11 @@
       :center="[centerLat, centerLng]"
       :min-zoom="minZoom"
       :max-zoom="maxZoom"
+      :options="{ zoomControl: false }"
       @update:zoom="emitMapZoom"
     >
+
+      <l-control-zoom position="topleft" />
 
       <l-tile-layer
         v-for="provider of tileProviders"
@@ -34,9 +37,9 @@
           :lat-lng="[marker.coords.latitude, marker.coords.longtitude]"
           @click="handleMarkerClick(marker)"
         >
-          <l-tooltip>
+          <l-popup>
             <map-tooltip :item="marker" />
-          </l-tooltip>
+          </l-popup>
         </l-marker>
         <l-polygon
           v-if="marker.plot"
@@ -63,7 +66,8 @@ import {
   LTileLayer,
   LMarker,
   LPolygon,
-  LTooltip
+  LPopup,
+  LControlZoom
 } from "@vue-leaflet/vue-leaflet";
 import "leaflet/dist/leaflet.css";
 import MapTooltip from './MapTooltip';
@@ -76,7 +80,8 @@ export default defineComponent({
     LTileLayer,
     LMarker,
     LPolygon,
-    LTooltip,
+    LPopup,
+    LControlZoom,
     MapTooltip,
     MapLayersControl
   },
@@ -135,12 +140,6 @@ export default defineComponent({
 
     const handleMarkerClick = (marker) => {
       emit('markerClick', marker);
-      // remove if dont need to centered and zoom marker place on click
-      zoom.value = maxZoom;
-      setTimeout(() => {
-        centerLng.value = marker.coords.longtitude;
-        centerLat.value = marker.coords.latitude;
-      }, 100);
     };
 
     const emitMapZoom = zoom => emit('mapZoom', zoom);
@@ -186,4 +185,9 @@ export default defineComponent({
   top: 30px
   right: 30px
   z-index: 1000
+
+  +max-w($tablet)
+    top: auto
+    right: 20px
+    bottom: 40px
 </style>
