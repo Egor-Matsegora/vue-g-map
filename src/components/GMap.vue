@@ -175,15 +175,15 @@ export default defineComponent({
 </script>
 
 <style lang="sass" scoped>
-  .g-map
-    width: 100%
-    height: 100%
-    position: relative
-    z-index: 1
+.g-map
+  width: 100%
+  height: 100%
+  position: relative
+  z-index: 1
 
-  .g-map__l-control
-    position: absolute
-    top: 30px
-    right: 30px
-    z-index: 1000
+.g-map__l-control
+  position: absolute
+  top: 30px
+  right: 30px
+  z-index: 1000
 </style>

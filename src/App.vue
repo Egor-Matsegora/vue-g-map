@@ -51,6 +51,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-  .g-map-wrapper
-    height: calc( 100vh - 50px )
+.g-map-wrapper
+  height: calc( 100vh - 50px )
 </style>
