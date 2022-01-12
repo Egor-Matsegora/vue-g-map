@@ -13,7 +13,7 @@
 
     <q-page-container>
       <div class="g-map-wrapper">
-        <GMap
+        <g-map
           :markers="mapData"
           @markerClick="handleMarkerClick"
           @mapZoom="handleMapZoom"

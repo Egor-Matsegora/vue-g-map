@@ -1,5 +1,8 @@
 <template>
-  <div class="g-map">
+  <div
+    class="g-map"
+    @click="activeMarker = null"
+  >
 
     <div class="g-map__l-control">
       <map-layers-control @toggleLayer="handleToggleLayer" />
@@ -7,12 +10,13 @@
 
     <l-map
       :zoom="zoom"
-      v-model="zoom"
-      v-model:zoom="zoom"
       :center="[centerLat, centerLng]"
       :min-zoom="minZoom"
       :max-zoom="maxZoom"
       :options="{ zoomControl: false }"
+      :key="isMobile"
+      v-model="zoom"
+      v-model:zoom="zoom"
       @update:zoom="emitMapZoom"
     >
 
@@ -35,7 +39,7 @@
       >
         <l-marker
           :lat-lng="[marker.coords.latitude, marker.coords.longtitude]"
-          @click="handleMarkerClick(marker)"
+          @click="handleMarkerClick($event, marker)"
         >
           <l-icon
             :icon-anchor="staticAnchor"
@@ -45,7 +49,7 @@
               {{ marker.price }}&nbsp;$
             </div>
           </l-icon>
-          <l-popup>
+          <l-popup v-if="!isMobile">
             <map-tooltip :item="marker" />
           </l-popup>
         </l-marker>
@@ -59,6 +63,16 @@
       </template>
 
     </l-map>
+
+    <div
+      class="g-map__mobile-popup"
+      v-if="isMobile && activeMarker"
+    >
+      <map-tooltip
+        :item="activeMarker"
+        :key="activeMarker.id"
+      />
+    </div>
   </div>
 </template>
 
@@ -117,8 +131,8 @@ export default defineComponent({
         id: 1,
         name: 'Streets',
         visible: false,
-        attribution:
-          '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        attribution: '',
+          // '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         url: 'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
       },
       {
@@ -126,8 +140,8 @@ export default defineComponent({
         name: 'Satelite',
         visible: true,
         url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-        attribution:
-          '&copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+        attribution: '',
+          // '&copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
       },
       {
         id: 3,
@@ -137,10 +151,12 @@ export default defineComponent({
         url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}{r}.png',
         // for hybrid layer
         // https://stamen-tiles-{s}.a.ssl.fastly.net/toner-hybrid/{z}/{x}/{y}{r}.{ext}
-        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        attribution: '',
+        // attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         subdomains: 'abcd',
       }
     ])
+    let activeMarker = ref(null);
     const minZoom = 2;
     const maxZoom = 17;
     const staticAnchor = [35, 0];
@@ -154,8 +170,10 @@ export default defineComponent({
       });
     }
 
-    const handleMarkerClick = (marker) => {
+    const handleMarkerClick = (event, marker) => {
+      event.originalEvent.stopPropagation();
       emit('markerClick', marker);
+      setTimeout(() => (activeMarker.value = marker), 100);
     };
 
     const emitMapZoom = zoom => emit('mapZoom', zoom);
@@ -200,6 +218,7 @@ export default defineComponent({
       centerLat,
       centerLng,
       tileProviders,
+      activeMarker,
       maxZoom,
       minZoom,
       staticAnchor,
@@ -230,7 +249,14 @@ export default defineComponent({
   +max-w($tablet)
     top: auto
     right: 20px
-    bottom: 40px
+    bottom: 30px
+
+.g-map__mobile-popup
+  position: absolute
+  bottom: 30px
+  left: 50%
+  transform: translateX(-50%)
+  z-index: 1000
 </style>
 
 <style lang="sass">
@@ -244,4 +270,7 @@ export default defineComponent({
   background-color: #fff
   border-radius: 100px
   border: 2px solid #000
+
+.leaflet-left .leaflet-control
+  margin-bottom: 30px
 </style>

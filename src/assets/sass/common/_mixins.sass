@@ -5,3 +5,10 @@
 =min-w($resolution)
   @media screen and (min-width: #{$resolution}px)
     @content
+
+=line-clamp($countline)
+  display: -webkit-box
+  overflow: hidden
+  text-overflow: ellipsis
+  -webkit-box-orient: vertical
+  -webkit-line-clamp: $countline
