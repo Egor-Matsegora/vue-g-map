@@ -31,6 +31,7 @@
         :attribution="provider.attribution"
         :subdomains="provider.subdomains"
         layer-type="base"
+        :detectRetina="true"
       ></l-tile-layer>
 
       <template
