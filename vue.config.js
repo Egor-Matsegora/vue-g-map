@@ -11,6 +11,8 @@ module.exports = {
     }
   },
   transpileDependencies: [
-    'quasar'
+    'quasar',
+    'leaflet',
+    '@vue-leaflet/vue-leaflet'
   ]
 }
