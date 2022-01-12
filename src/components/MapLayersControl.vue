@@ -36,7 +36,7 @@ export default defineComponent({
   width: 100%
   height: 100%
   border-radius: 3px
-  background: url('../assets/map-gps-svgrepo-com.svg') center no-repeat, #fff
+  background: url('../assets/ground-satelite-dish-svgrepo-com.svg') center no-repeat, #fff
   background-size: 70%
   cursor: pointer
   opacity: 0.7
@@ -48,7 +48,7 @@ export default defineComponent({
     opacity: 1
 
 .layers-control__icon--toggled
-  background: url('../assets/ground-satelite-dish-svgrepo-com.svg') center no-repeat, #fff
+  background: url('../assets/map-gps-svgrepo-com.svg') center no-repeat, #fff
   background-size: 70%
 
 </style>

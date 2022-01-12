@@ -3,9 +3,15 @@ module.exports = {
     quasar: {
       importStrategy: 'kebab',
       rtlSupport: false
+    },
+    'style-resources-loader': {
+      preProcessor: 'sass',
+      patterns: ['./src/assets/sass/common/index.sass'],
     }
   },
   transpileDependencies: [
-    'quasar'
+    'quasar',
+    'leaflet',
+    '@vue-leaflet/vue-leaflet'
   ]
 }
